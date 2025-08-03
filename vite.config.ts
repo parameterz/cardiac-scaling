@@ -4,7 +4,7 @@ import { resolve } from 'path'
 
 export default defineConfig({
   plugins: [react()],
-  base: '/cardiac-scaling-dev/',
+  base: '/cardiac-scaling/',
   resolve: {
     alias: {
       '@': resolve(__dirname, 'src'),
