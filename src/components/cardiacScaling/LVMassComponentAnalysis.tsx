@@ -890,7 +890,7 @@ const LVMassComponentAnalysis: React.FC<LVMassComponentAnalysisProps> = ({
                   margin: 0,
                 }}
               >
-                Published scaling vs calculated from components
+                Mass reference scaling vs linear component scaling
               </p>
             </header>
 
@@ -939,7 +939,7 @@ const LVMassComponentAnalysis: React.FC<LVMassComponentAnalysisProps> = ({
                   strokeWidth={3}
                   {...LINE_STYLES.published}
                   dot={false}
-                  name="Published Male"
+                  name="Mass Reference Male"
                   connectNulls={false}
                 />
                 <Line
@@ -948,7 +948,7 @@ const LVMassComponentAnalysis: React.FC<LVMassComponentAnalysisProps> = ({
                   strokeWidth={3}
                   {...LINE_STYLES.published}
                   dot={false}
-                  name="Published Female"
+                  name="Mass Reference Female"
                   connectNulls={false}
                 />
 
@@ -959,7 +959,7 @@ const LVMassComponentAnalysis: React.FC<LVMassComponentAnalysisProps> = ({
                   strokeWidth={3}
                   {...LINE_STYLES.calculated}
                   dot={false}
-                  name="Calculated Male"
+                  name="Component Scaling Male"
                   connectNulls={false}
                 />
                 <Line
@@ -968,7 +968,7 @@ const LVMassComponentAnalysis: React.FC<LVMassComponentAnalysisProps> = ({
                   strokeWidth={3}
                   {...LINE_STYLES.calculated}
                   dot={false}
-                  name="Calculated Female"
+                  name="Component Scaling Female"
                   connectNulls={false}
                 />
 
@@ -992,7 +992,7 @@ const LVMassComponentAnalysis: React.FC<LVMassComponentAnalysisProps> = ({
                 marginTop: "0.5rem",
               }}
             >
-              <strong>Line styles:</strong> Published (solid), Calculated from
+              <strong>Line styles:</strong> Mass reference scaling (solid), Calculated from
               components (dashed)
             </div>
           </div>
@@ -1064,11 +1064,11 @@ const LVMassComponentAnalysis: React.FC<LVMassComponentAnalysisProps> = ({
           <div>
             <h4 style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
               <BookOpen size={16} />
-              Direct Mass Path
+              Mass Reference Path
             </h4>
             <ol style={{ fontSize: "0.9rem" }}>
-              <li>Apply scaling method directly to LV mass</li>
-              <li>Use published reference values or derived coefficients</li>
+              <li>Apply scaling method to reference LV mass values</li>
+              <li>Derived from published BSA-indexed mass data</li>
               <li>Results shown as solid lines</li>
             </ol>
           </div>

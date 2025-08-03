@@ -1,5 +1,7 @@
 // src/config/version.ts
 
+import { version } from "os";
+
 /**
  * Application version and build information
  * Centralized version management for the Cardiac Scaling Analysis Laboratory
@@ -18,6 +20,15 @@ export const AUTHOR = 'Dan Dyar, MA, ACS, RDCS, FASE';
 
 
 export const VERSION_HISTORY = [
+  {
+    version: '1.0.2',
+    date: '2025-08-04', 
+    changes: [
+      'Updated LVMassComponentAnalysis terminology for clarity'
+    ],
+    breakingChanges: [],
+    notes: 'Clarified terminology in LVMassComponentAnalysis component for better description of LVMi vs component scaling',
+  },
   {
     version: '1.0.1',
     date: '2025-08-03',
