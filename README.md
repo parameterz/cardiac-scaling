@@ -98,9 +98,6 @@ If you use this tool in your research, please cite:
 ```
 [Your citation format here]
 Cardiac Scaling Analysis Laboratory. [Year]. 
-Available at: [Your deployment URL]
-```
+Available at: [parameterz.github.io/cardiac-scaling](https://parameterz.github.io/cardiac-scaling/)
 
 ---
-
-*Companion analysis for: [Your letter to editor citation]*
