@@ -238,7 +238,7 @@ const LVMassMethodologyPanel: React.FC<LVMassMethodologyPanelProps> = ({
         }}>
           <strong>Why Two Paths?</strong> Comparing component-based calculation with direct scaling 
           reveals how geometric relationships between linear measurements and total mass 
-          are preserved across different scaling methodologies.
+          are related across different scaling methodologies.
         </div>
       </div>
     </details>

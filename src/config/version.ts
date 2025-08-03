@@ -22,7 +22,7 @@ export const AUTHOR = 'Dan Dyar, MA, ACS, RDCS, FASE';
 export const VERSION_HISTORY = [
   {
     version: '1.0.2',
-    date: '2025-08-04', 
+    date: '2025-08-03', 
     changes: [
       'Updated LVMassComponentAnalysis terminology for clarity'
     ],
