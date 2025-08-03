@@ -1,5 +1,5 @@
 // src/App.tsx
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 // Import components
 import Navigation, { type NavigationTab } from "./components/Navigation";
@@ -17,12 +17,77 @@ import {
   isFeatureEnabled,
 } from "./config/version";
 
+// Import analytics
+import {
+  initializeAnalytics,
+  initializeSessionTracking,
+  trackTabNavigation,
+  trackPerformance,
+  getAnalyticsDebugInfo,
+} from "./utils/analytics";
+
 function App() {
   const [activeTab, setActiveTab] = useState<NavigationTab>("intro");
+  const [previousTab, setPreviousTab] = useState<NavigationTab | undefined>();
 
   // PERSISTENT FORMULA SELECTION - Shared across all tabs
   const { selection: formulaSelection, callbacks: formulaCallbacks } =
     useFormulaSelection();
+
+  // Initialize analytics on app mount
+  useEffect(() => {
+    console.log("🚀 Initializing Cardiac Scaling Analysis Laboratory...");
+
+    // Start performance timing
+    const initStart = performance.now();
+
+    // Initialize analytics
+    initializeAnalytics();
+    initializeSessionTracking();
+
+    // Track initial page load
+    trackTabNavigation("intro");
+
+    // Log analytics debug info in development
+    if (process.env.NODE_ENV === "development") {
+      console.log("📊 Analytics Debug Info:", getAnalyticsDebugInfo());
+    }
+
+    // Track initialization performance
+    const initDuration = performance.now() - initStart;
+    trackPerformance("analysis_generation", initDuration, "app_initialization");
+
+    console.log(`✅ App initialized in ${initDuration.toFixed(2)}ms`);
+  }, []);
+
+  // Enhanced tab change handler with analytics tracking
+  const handleTabChange = (newTab: NavigationTab) => {
+    const startTime = performance.now();
+
+    // Update state
+    setPreviousTab(activeTab);
+    setActiveTab(newTab);
+
+    // Track navigation with context
+    trackTabNavigation(newTab, activeTab);
+
+    // Track tab switch performance
+    const switchDuration = performance.now() - startTime;
+    trackPerformance(
+      "analysis_generation",
+      switchDuration,
+      `tab_switch_${newTab}`
+    );
+
+    // Console log in development
+    if (process.env.NODE_ENV === "development") {
+      console.log(
+        `📱 Tab switched: ${activeTab} → ${newTab} (${switchDuration.toFixed(
+          2
+        )}ms)`
+      );
+    }
+  };
 
   // Get measurements for each category
   const linearMeasurements = getMeasurementsByType("linear");
@@ -38,16 +103,15 @@ function App() {
         <hgroup>
           <h1>Cardiac Scaling Analysis Laboratory</h1>
         </hgroup>
-
         <Navigation
           activeTab={activeTab}
-          onTabChange={setActiveTab}
+          onTabChange={handleTabChange} // ← Use the analytics handler
           measurementCounts={{
             linear: linearMeasurements.length,
             area: areaMeasurements.length,
             massVolume: massVolumeMeasurements.length,
           }}
-        />
+        />{" "}
       </header>
 
       {/* Main Content */}
@@ -87,8 +151,8 @@ function App() {
               <hgroup>
                 <h2>Area Measurements</h2>
                 <p>
-                  Two-dimensional cardiac parameters including chamber areas. Expected scaling relationships: LBM^0.67,
-                  BSA^1.0, Height^2.0
+                  Two-dimensional cardiac parameters including chamber areas.
+                  Expected scaling relationships: LBM^0.67, BSA^1.0, Height^2.0
                 </p>
               </hgroup>
             </header>
@@ -151,8 +215,8 @@ function App() {
                 <h2>Methodology and Theoretical Framework</h2>
                 <p>
                   Mathematical foundations, scaling theory principles, and
-                  implementation of the "Dewey methodology" for deriving novel cardiovascular
-                  parameter normalization.
+                  implementation of the "Dewey methodology" for deriving novel
+                  cardiovascular parameter normalization.
                 </p>
               </hgroup>
             </header>
