@@ -28,16 +28,21 @@ function App() {
 
 // analytics:
 useEffect(() => {
-  console.log("🚀 Initializing Cardiac Scaling Analysis Laboratory...");
+  // Simple environment check
+  const isDev = window.location.hostname === 'localhost' || 
+                window.location.hostname.includes('127.0.0.1') ||
+                window.location.port !== '';
   
-  // Simple analytics - gtag is already loaded from HTML
-  if (typeof window.gtag === 'function') {
+  if (typeof window.gtag === 'function' && !isDev) {
     window.gtag('event', 'app_initialized', {
       event_category: 'app_lifecycle'
     });
-    console.log("📊 Analytics ready");
+    console.log("📊 Analytics ready (production)");
+  } else {
+    console.log("📊 Analytics suppressed (development)");
   }
 }, []);
+
 const handleTabChange = (newTab: NavigationTab) => {
   setPreviousTab(activeTab);
   setActiveTab(newTab);
