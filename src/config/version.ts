@@ -1,6 +1,5 @@
 // src/config/version.ts
 
-import { version } from "os";
 
 /**
  * Application version and build information
@@ -20,6 +19,15 @@ export const AUTHOR = 'Dan Dyar, MA, ACS, RDCS, FASE';
 
 
 export const VERSION_HISTORY = [
+  {
+    version: '1.0.3',
+    date: '2025-08-06', 
+    changes: [
+      'analytics: Added Google Analytics integration',
+    ],
+    breakingChanges: [],
+    notes: '',
+  },
   {
     version: '1.0.2',
     date: '2025-08-03', 

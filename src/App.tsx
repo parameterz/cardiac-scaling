@@ -17,14 +17,6 @@ import {
   isFeatureEnabled,
 } from "./config/version";
 
-// Import analytics
-import {
-  initializeAnalytics,
-  initializeSessionTracking,
-  trackTabNavigation,
-  trackPerformance,
-  getAnalyticsDebugInfo,
-} from "./utils/analytics";
 
 function App() {
   const [activeTab, setActiveTab] = useState<NavigationTab>("intro");
@@ -34,60 +26,30 @@ function App() {
   const { selection: formulaSelection, callbacks: formulaCallbacks } =
     useFormulaSelection();
 
-  // Initialize analytics on app mount
-  useEffect(() => {
-    console.log("🚀 Initializing Cardiac Scaling Analysis Laboratory...");
-
-    // Start performance timing
-    const initStart = performance.now();
-
-    // Initialize analytics
-    initializeAnalytics();
-    initializeSessionTracking();
-
-    // Track initial page load
-    trackTabNavigation("intro");
-
-    // Log analytics debug info in development
-    if (process.env.NODE_ENV === "development") {
-      console.log("📊 Analytics Debug Info:", getAnalyticsDebugInfo());
-    }
-
-    // Track initialization performance
-    const initDuration = performance.now() - initStart;
-    trackPerformance("analysis_generation", initDuration, "app_initialization");
-
-    console.log(`✅ App initialized in ${initDuration.toFixed(2)}ms`);
-  }, []);
-
-  // Enhanced tab change handler with analytics tracking
-  const handleTabChange = (newTab: NavigationTab) => {
-    const startTime = performance.now();
-
-    // Update state
-    setPreviousTab(activeTab);
-    setActiveTab(newTab);
-
-    // Track navigation with context
-    trackTabNavigation(newTab, activeTab);
-
-    // Track tab switch performance
-    const switchDuration = performance.now() - startTime;
-    trackPerformance(
-      "analysis_generation",
-      switchDuration,
-      `tab_switch_${newTab}`
-    );
-
-    // Console log in development
-    if (process.env.NODE_ENV === "development") {
-      console.log(
-        `📱 Tab switched: ${activeTab} → ${newTab} (${switchDuration.toFixed(
-          2
-        )}ms)`
-      );
-    }
-  };
+// analytics:
+useEffect(() => {
+  console.log("🚀 Initializing Cardiac Scaling Analysis Laboratory...");
+  
+  // Simple analytics - gtag is already loaded from HTML
+  if (typeof window.gtag === 'function') {
+    window.gtag('event', 'app_initialized', {
+      event_category: 'app_lifecycle'
+    });
+    console.log("📊 Analytics ready");
+  }
+}, []);
+const handleTabChange = (newTab: NavigationTab) => {
+  setPreviousTab(activeTab);
+  setActiveTab(newTab);
+  
+  // Simple analytics
+  if (typeof window.gtag === 'function') {
+    window.gtag('event', 'tab_change', {
+      event_category: 'navigation',
+      event_label: newTab
+    });
+  }
+};
 
   // Get measurements for each category
   const linearMeasurements = getMeasurementsByType("linear");
